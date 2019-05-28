@@ -14,6 +14,8 @@ sources = [
 
 # Bash recipe for building across all platforms
 script = raw"""
+PATH="$prefix/bin":$PATH
+nasm --version
 cd $WORKSPACE/srcdir
 cd x264-snapshot-20190525-2245-stable/
 ./configure --prefix=$prefix --host=$target --enable-shared --disable-cli
@@ -55,9 +57,8 @@ products(prefix) = [
 # Dependencies that must be installed before this package can be built
 dependencies = [
     "https://github.com/ianshmean/nasmBuilder/releases/download/v2.14.2/build_nasmBuilder.v2.14.2.jl"
-    
+
 ]
 
 # Build the tarballs, and possibly a `build.jl` as well.
 build_tarballs(ARGS, name, version, sources, script, platforms, products, dependencies)
-
